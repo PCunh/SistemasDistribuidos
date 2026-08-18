@@ -45,20 +45,32 @@ def deletar_tarefa(pos: int):
 def root():
     return {"message": "hello world"}
 
+# 1. após executar algumas vezes na página FastAPI o contador vai acrescentando
+#alguns números (Exemplo: primeira execução 0, segunda execução 1, terceira execução 3.... assim por diante) 
+# 2. Quando declaramos counter como global, estamos dizendo, para o counter não criar uma varíavel counter local MAS 
+#que eu quero utilizar um counter fora dessa função
+# 3. Por conta do "counter += 1", ele apenas não consulta mas modifica o estado da aplicação
 @app.get("/count")
 def get_count():
     global counter
     counter += 1
     return counter
 
+#Este exibe apenas o "Hello, world!"
 @app.get("/hello")
 def hello_world():
     return "Hello, world"
 
+#Este requisita uma string ao final para prosseguir 
+#"Hello, world!" ou "Hello, Usuário!" ou "Hello, ...!"
+#Assim por diante
 @app.get("/hello/{name}")
 def hello(name):
     return f"Hello, {name}"
 
+#Este requisita uma string ao final para prosseguir 
+#"Hello, world!" ou "Hello, Usuário!" ou "Hello, ...!"
+#Assim por diante
 @app.get("/hello/")
 def hello(parameter = "World"):
     return f"Hello, {parameter}"

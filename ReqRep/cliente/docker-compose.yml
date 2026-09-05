@@ -1,0 +1,31 @@
+services:
+
+  broker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: broker
+    command: python broker.py
+    ports:
+      - "5555:5555"
+      - "5556:5556"
+
+  cliente:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cliente
+    command: python cliente.py
+    depends_on:
+      - broker
+    stdin_open: true
+    tty: true
+
+  servidor:
+    build:
+      context: ../servidor
+      dockerfile: Dockerfile
+    container_name: servidor
+    command: python servidor.py
+    depends_on:
+      - broker
